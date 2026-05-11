@@ -381,10 +381,7 @@ class SistemaTerremotos:
 
             self.tabla.heading(col, text=col)
 
-            self.tabla.column(
-                col,
-                width=220
-            )
+            self.tabla.column(col, width=220)
 
         scrollbar_y = ttk.Scrollbar(
             frame_tabla,
@@ -435,7 +432,6 @@ class SistemaTerremotos:
         )
 
         frame.pack(side="left", padx=10)
-
         frame.pack_propagate(False)
 
         tk.Label(
@@ -466,14 +462,25 @@ class SistemaTerremotos:
 
         try:
 
-            # =================================================
-            # RUTA AUTOMATICA
-            # =================================================
-
             ruta = os.path.join(
                 os.path.dirname(__file__),
                 "earthquake_1995-2023.csv"
             )
+
+            print("Buscando archivo en:")
+            print(ruta)
+
+            if not os.path.exists(ruta):
+
+                messagebox.showerror(
+                    "Error",
+                    "No se encontro el archivo CSV\n\n"
+                    "Asegurate de poner:\n"
+                    "earthquake_1995-2023.csv\n\n"
+                    "en la misma carpeta de main.py"
+                )
+
+                return
 
             # =================================================
             # LEER CSV
@@ -488,22 +495,18 @@ class SistemaTerremotos:
             self.df.dropna(inplace=True)
 
             # =================================================
-            # COLUMNAS
-            # =================================================
-
-            print(self.df.columns)
-
-            # =================================================
             # COPIA
             # =================================================
 
             self.df_filtrado = self.df.copy()
 
             # =================================================
-            # DETECTAR COLUMNAS
+            # COLUMNAS
             # =================================================
 
             columnas = self.df.columns.tolist()
+
+            print(columnas)
 
             self.col_titulo = columnas[0]
             self.col_magnitud = columnas[1]
@@ -543,7 +546,7 @@ class SistemaTerremotos:
 
             messagebox.showerror(
                 "Error",
-                f"No se encontro el archivo CSV\n\n{e}"
+                f"No se pudo abrir el CSV\n\n{e}"
             )
 
     # ========================================================
@@ -608,8 +611,6 @@ class SistemaTerremotos:
 
             magnitud = self.entry_magnitud.get()
 
-            # FILTRO CONTINENTE
-
             if (
                 "continent" in self.df.columns
                 and continente != ""
@@ -619,8 +620,6 @@ class SistemaTerremotos:
                 self.df_filtrado = self.df_filtrado[
                     self.df_filtrado["continent"] == continente
                 ]
-
-            # FILTRO MAGNITUD
 
             if magnitud != "":
 
@@ -725,7 +724,7 @@ class SistemaTerremotos:
         axes[0].set_title("Categorias")
 
         # ====================================================
-        # BARRAS
+        # GRAFICA BARRAS
         # ====================================================
 
         magnitudes.head(10).plot.bar(
