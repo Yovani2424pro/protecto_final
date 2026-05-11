@@ -55,7 +55,7 @@ class SistemaTerremotos:
         self.df_filtrado = None
 
         # =====================================================
-        # CREAR CARPETA
+        # CREAR CARPETA REPORTES
         # =====================================================
 
         if not os.path.exists("reportes"):
@@ -123,12 +123,16 @@ class SistemaTerremotos:
         self.cargar_csv()
 
     # =====================================================
-    # MENU
+    # MENU SUPERIOR
     # =====================================================
 
     def crear_menu(self):
 
         barra = tk.Menu(self.root)
+
+        # =====================================================
+        # MENU ARCHIVO
+        # =====================================================
 
         archivo = tk.Menu(barra, tearoff=0)
 
@@ -149,14 +153,15 @@ class SistemaTerremotos:
             menu=archivo
         )
 
+        # =====================================================
+        # MENU AYUDA
+        # =====================================================
+
         ayuda = tk.Menu(barra, tearoff=0)
 
         ayuda.add_command(
             label="Acerca de",
-            command=lambda: messagebox.showinfo(
-                "Información",
-                "Sistema Profesional de Terremotos\nPython + Tkinter"
-            )
+            command=self.mostrar_acerca_de
         )
 
         barra.add_cascade(
@@ -167,14 +172,219 @@ class SistemaTerremotos:
         self.root.config(menu=barra)
 
     # =====================================================
-    # INTERFAZ
+    # VENTANA ACERCA DE
+    # =====================================================
+
+    def mostrar_acerca_de(self):
+
+        ventana = tk.Toplevel(self.root)
+
+        ventana.title("Acerca de")
+        ventana.geometry("620x520")
+        ventana.configure(bg="#111827")
+        ventana.resizable(False, False)
+
+        # =====================================================
+        # TITULO
+        # =====================================================
+
+        titulo = tk.Label(
+            ventana,
+            text="🌎 SISTEMA PROFESIONAL DE TERREMOTOS",
+            bg="#111827",
+            fg="#38bdf8",
+            font=("Segoe UI", 18, "bold")
+        )
+
+        titulo.pack(pady=10)
+
+        # =====================================================
+        # FRAME PRINCIPAL
+        # =====================================================
+
+        frame_principal = tk.Frame(
+            ventana,
+            bg="#111827"
+        )
+
+        frame_principal.pack(
+            fill="both",
+            expand=True,
+            padx=10,
+            pady=10
+        )
+
+        # =====================================================
+        # SCROLLBAR
+        # =====================================================
+
+        scrollbar = tk.Scrollbar(frame_principal)
+
+        scrollbar.pack(
+            side="right",
+            fill="y"
+        )
+
+        # =====================================================
+        # AREA DE TEXTO
+        # =====================================================
+
+        texto = tk.Text(
+            frame_principal,
+            wrap="word",
+            yscrollcommand=scrollbar.set,
+            bg="#1e293b",
+            fg="white",
+            font=("Segoe UI", 10),
+            relief="flat",
+            padx=15,
+            pady=15
+        )
+
+        texto.pack(
+            fill="both",
+            expand=True
+        )
+
+        scrollbar.config(command=texto.yview)
+
+        # =====================================================
+        # INFORMACION
+        # =====================================================
+
+        informacion = """
+👨‍💻 DESARROLLADOR
+
+Nombre:
+Yovani Andres Canche Robertos
+
+
+🎓 CARRERA
+
+Ciencia de Datos
+
+
+🏫 ESCUELA
+
+CBTIS 72
+
+
+📊 DESCRIPCIÓN DEL PROYECTO
+
+Este sistema profesional de terremotos
+fue desarrollado utilizando Python,
+Tkinter, Pandas y Matplotlib para el
+análisis y visualización de datos sísmicos.
+
+La aplicación permite cargar archivos CSV
+con información sobre terremotos ocurridos
+en distintas partes del mundo.
+
+Además, el sistema cuenta con filtros
+interactivos y gráficas dinámicas que
+facilitan el análisis estadístico de
+la información.
+
+
+⚙ FUNCIONES PRINCIPALES
+
+✔ Cargar archivos CSV automáticamente
+
+✔ Eliminar datos nulos automáticamente
+
+✔ Analizar datos sísmicos
+
+✔ Filtrar terremotos por magnitud
+
+✔ Mostrar tablas dinámicas
+
+✔ Generar gráficas profesionales
+
+✔ Visualizar mapas de terremotos
+
+✔ Exportar reportes a Excel
+
+✔ Mostrar estadísticas en tiempo real
+
+✔ Interfaz moderna con tema oscuro
+
+
+📈 GRÁFICAS DISPONIBLES
+
+✔ Gráfica circular de magnitudes
+
+✔ Top 10 terremotos más fuertes
+
+✔ Mapa de dispersión (Scatter)
+
+✔ Histograma de magnitudes
+
+
+🖥 TECNOLOGÍAS UTILIZADAS
+
+✔ Python
+
+✔ Tkinter
+
+✔ Pandas
+
+✔ Matplotlib
+
+✔ Openpyxl
+
+
+🌎 OBJETIVO DEL SISTEMA
+
+Facilitar el análisis y visualización
+de datos sísmicos mediante una interfaz
+gráfica moderna, intuitiva y fácil de usar.
+
+El sistema fue diseñado para apoyar
+proyectos académicos relacionados con
+ciencia de datos y análisis estadístico.
+
+
+📚 APLICACIONES
+
+✔ Análisis de terremotos
+
+✔ Visualización de datos
+
+✔ Estadística descriptiva
+
+✔ Ciencia de datos
+
+✔ Proyectos escolares
+
+✔ Investigación académica
+"""
+
+        texto.insert("1.0", informacion)
+
+        texto.config(state="disabled")
+
+        # =====================================================
+        # BOTON CERRAR
+        # =====================================================
+
+        boton = tk.Button(
+            ventana,
+            text="Cerrar",
+            bg="#2563eb",
+            fg="white",
+            font=("Segoe UI", 10, "bold"),
+            width=18,
+            relief="flat",
+            command=ventana.destroy
+        )
+
+        boton.pack(pady=10)
+
+    # =====================================================
+    # INTERFAZ PRINCIPAL
     # =====================================================
 
     def crear_interfaz(self):
-
-        # =====================================================
-        # PANEL IZQUIERDO PEQUEÑO
-        # =====================================================
 
         self.panel_izquierdo = tk.Frame(
             self.root,
@@ -202,7 +412,7 @@ class SistemaTerremotos:
         titulo_panel.pack(pady=15)
 
         # =====================================================
-        # FILTROS
+        # FILTRO
         # =====================================================
 
         tk.Label(
@@ -242,7 +452,7 @@ class SistemaTerremotos:
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Excel",
+            text="Exportar Excel",
             command=self.exportar_excel
         ).pack(pady=4)
 
@@ -260,19 +470,19 @@ class SistemaTerremotos:
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Circular",
+            text="Gráfica Circular",
             command=self.grafica_pie
         ).pack(pady=3)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Top 10",
+            text="Top 10 Terremotos",
             command=self.grafica_barras
         ).pack(pady=3)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Mapa",
+            text="Mapa Scatter",
             command=self.grafica_scatter
         ).pack(pady=3)
 
@@ -283,7 +493,7 @@ class SistemaTerremotos:
         ).pack(pady=3)
 
         # =====================================================
-        # PANEL DERECHO GRANDE
+        # PANEL DERECHO
         # =====================================================
 
         self.panel_derecho = tk.Frame(
@@ -326,7 +536,7 @@ class SistemaTerremotos:
         )
 
         # =====================================================
-        # TABLA PEQUEÑA
+        # TABLA
         # =====================================================
 
         frame_tabla = tk.Frame(
@@ -354,7 +564,7 @@ class SistemaTerremotos:
             height=7
         )
 
-        anchos = [40, 500, 100, 180]
+        anchos = [40, 520, 100, 180]
 
         for col, ancho in zip(columnas, anchos):
 
@@ -387,7 +597,7 @@ class SistemaTerremotos:
         )
 
         # =====================================================
-        # GRAFICAS GRANDES
+        # FRAME GRAFICAS
         # =====================================================
 
         self.frame_graficas = tk.Frame(
@@ -564,7 +774,7 @@ class SistemaTerremotos:
             )
 
     # =====================================================
-    # LIMPIAR
+    # LIMPIAR FILTROS
     # =====================================================
 
     def limpiar_filtros(self):
@@ -638,13 +848,10 @@ class SistemaTerremotos:
 
         datos = categorias.value_counts()
 
-        colores = ["#22c55e", "#facc15", "#ef4444"]
-
         ax.pie(
             datos,
             labels=datos.index,
             autopct="%1.1f%%",
-            colors=colores,
             startangle=90,
             textprops={"fontsize": 15}
         )
@@ -668,7 +875,7 @@ class SistemaTerremotos:
         )
 
     # =====================================================
-    # TOP 10
+    # GRAFICA BARRAS
     # =====================================================
 
     def grafica_barras(self):
@@ -766,7 +973,7 @@ class SistemaTerremotos:
         )
 
     # =====================================================
-    # SCATTER
+    # GRAFICA SCATTER
     # =====================================================
 
     def grafica_scatter(self):
