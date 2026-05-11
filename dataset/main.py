@@ -18,8 +18,8 @@ class SistemaTerremotos:
     def __init__(self, root):
 
         self.root = root
-        self.root.title("Sistema Profesional de Terremotos")
-        self.root.geometry("1450x850")
+        self.root.title("🌎 Sistema Profesional de Terremotos")
+        self.root.geometry("1600x920")
         self.root.configure(bg="#0f172a")
 
         # =====================================================
@@ -31,11 +31,11 @@ class SistemaTerremotos:
 
         style.configure(
             "Treeview",
-            background="#1e293b",
+            background="#111827",
             foreground="white",
-            fieldbackground="#1e293b",
+            fieldbackground="#111827",
             rowheight=28,
-            font=("Segoe UI", 10)
+            font=("Segoe UI", 9)
         )
 
         style.configure(
@@ -55,7 +55,7 @@ class SistemaTerremotos:
         self.df_filtrado = None
 
         # =====================================================
-        # CREAR CARPETA REPORTES
+        # CREAR CARPETA
         # =====================================================
 
         if not os.path.exists("reportes"):
@@ -64,7 +64,7 @@ class SistemaTerremotos:
         self.pantalla_inicio()
 
     # =====================================================
-    # PANTALLA DE INICIO
+    # PANTALLA INICIO
     # =====================================================
 
     def pantalla_inicio(self):
@@ -81,17 +81,17 @@ class SistemaTerremotos:
             text="🌎 SISTEMA DE TERREMOTOS",
             bg="#0f172a",
             fg="#38bdf8",
-            font=("Segoe UI", 30, "bold")
+            font=("Segoe UI", 34, "bold")
         )
 
         titulo.pack(pady=100)
 
         descripcion = tk.Label(
             self.frame_inicio,
-            text="Análisis de terremotos con Python",
+            text="Análisis sísmico profesional con Python",
             bg="#0f172a",
             fg="white",
-            font=("Segoe UI", 15)
+            font=("Segoe UI", 16)
         )
 
         descripcion.pack(pady=10)
@@ -99,10 +99,10 @@ class SistemaTerremotos:
         boton = tk.Button(
             self.frame_inicio,
             text="INGRESAR AL SISTEMA",
-            bg="#38bdf8",
-            fg="black",
+            bg="#2563eb",
+            fg="white",
             font=("Segoe UI", 14, "bold"),
-            width=22,
+            width=25,
             height=2,
             relief="flat",
             command=self.iniciar_sistema
@@ -173,34 +173,36 @@ class SistemaTerremotos:
     def crear_interfaz(self):
 
         # =====================================================
-        # PANEL IZQUIERDO
+        # PANEL IZQUIERDO PEQUEÑO
         # =====================================================
 
         self.panel_izquierdo = tk.Frame(
             self.root,
             bg="#111827",
-            width=240
+            width=220
         )
 
         self.panel_izquierdo.pack(
             side="left",
-            fill="y"
+            fill="y",
+            padx=5,
+            pady=5
         )
 
         self.panel_izquierdo.pack_propagate(False)
 
         titulo_panel = tk.Label(
             self.panel_izquierdo,
-            text="📊 PANEL DE CONTROL",
+            text="📊 PANEL",
             bg="#111827",
             fg="#38bdf8",
             font=("Segoe UI", 14, "bold")
         )
 
-        titulo_panel.pack(pady=20)
+        titulo_panel.pack(pady=15)
 
         # =====================================================
-        # FILTRO
+        # FILTROS
         # =====================================================
 
         tk.Label(
@@ -208,41 +210,41 @@ class SistemaTerremotos:
             text="Magnitud mínima",
             bg="#111827",
             fg="white",
-            font=("Segoe UI", 11)
-        ).pack(pady=5)
+            font=("Segoe UI", 10)
+        ).pack(pady=3)
 
         self.entry_magnitud = ttk.Entry(
             self.panel_izquierdo,
-            width=20
+            width=18
         )
 
-        self.entry_magnitud.pack(pady=5)
+        self.entry_magnitud.pack(pady=4)
 
         tk.Label(
             self.panel_izquierdo,
             text="Ejemplo: 5 o 6.5",
             bg="#111827",
             fg="gray",
-            font=("Segoe UI", 9)
+            font=("Segoe UI", 8)
         ).pack()
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Aplicar Filtro",
+            text="Aplicar",
             command=self.aplicar_filtros
-        ).pack(pady=5)
+        ).pack(pady=4)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Limpiar Filtros",
+            text="Limpiar",
             command=self.limpiar_filtros
-        ).pack(pady=5)
+        ).pack(pady=4)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Exportar Excel",
+            text="Excel",
             command=self.exportar_excel
-        ).pack(pady=5)
+        ).pack(pady=4)
 
         # =====================================================
         # BOTONES GRAFICAS
@@ -250,38 +252,38 @@ class SistemaTerremotos:
 
         tk.Label(
             self.panel_izquierdo,
-            text="📈 GENERAR GRÁFICAS",
+            text="📈 GRÁFICAS",
             bg="#111827",
             fg="#38bdf8",
-            font=("Segoe UI", 12, "bold")
-        ).pack(pady=20)
+            font=("Segoe UI", 11, "bold")
+        ).pack(pady=18)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Gráfica Circular",
+            text="Circular",
             command=self.grafica_pie
-        ).pack(pady=4)
+        ).pack(pady=3)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Top 10 Terremotos",
+            text="Top 10",
             command=self.grafica_barras
-        ).pack(pady=4)
+        ).pack(pady=3)
 
         ttk.Button(
             self.panel_izquierdo,
-            text="Mapa Scatter",
+            text="Mapa",
             command=self.grafica_scatter
-        ).pack(pady=4)
+        ).pack(pady=3)
 
         ttk.Button(
             self.panel_izquierdo,
             text="Histograma",
             command=self.grafica_histograma
-        ).pack(pady=4)
+        ).pack(pady=3)
 
         # =====================================================
-        # PANEL DERECHO
+        # PANEL DERECHO GRANDE
         # =====================================================
 
         self.panel_derecho = tk.Frame(
@@ -290,9 +292,11 @@ class SistemaTerremotos:
         )
 
         self.panel_derecho.pack(
-            side="right",
+            side="left",
             fill="both",
-            expand=True
+            expand=True,
+            padx=5,
+            pady=5
         )
 
         # =====================================================
@@ -304,25 +308,25 @@ class SistemaTerremotos:
             bg="#0f172a"
         )
 
-        tarjetas.pack(fill="x", pady=10)
+        tarjetas.pack(fill="x", pady=5)
 
         self.total_label = self.crear_tarjeta(
             tarjetas,
-            "Total Registros"
+            "TOTAL"
         )
 
         self.max_label = self.crear_tarjeta(
             tarjetas,
-            "Magnitud Máxima"
+            "MÁXIMA"
         )
 
         self.promedio_label = self.crear_tarjeta(
             tarjetas,
-            "Promedio"
+            "PROMEDIO"
         )
 
         # =====================================================
-        # TABLA
+        # TABLA PEQUEÑA
         # =====================================================
 
         frame_tabla = tk.Frame(
@@ -331,32 +335,34 @@ class SistemaTerremotos:
         )
 
         frame_tabla.pack(
-            fill="both",
-            padx=10,
+            fill="x",
+            padx=5,
             pady=5
         )
 
         columnas = (
+            "#",
             "Lugar",
             "Magnitud",
-            "Fecha",
-            "Profundidad"
+            "Fecha"
         )
 
         self.tabla = ttk.Treeview(
             frame_tabla,
             columns=columnas,
             show="headings",
-            height=6
+            height=7
         )
 
-        for col in columnas:
+        anchos = [40, 500, 100, 180]
+
+        for col, ancho in zip(columnas, anchos):
 
             self.tabla.heading(col, text=col)
 
             self.tabla.column(
                 col,
-                width=240
+                width=ancho
             )
 
         scrollbar = ttk.Scrollbar(
@@ -371,7 +377,7 @@ class SistemaTerremotos:
 
         self.tabla.pack(
             side="left",
-            fill="both",
+            fill="x",
             expand=True
         )
 
@@ -381,23 +387,20 @@ class SistemaTerremotos:
         )
 
         # =====================================================
-        # FRAME GRAFICAS
+        # GRAFICAS GRANDES
         # =====================================================
 
         self.frame_graficas = tk.Frame(
             self.panel_derecho,
-            bg="#0f172a",
-            height=500
+            bg="#0f172a"
         )
 
         self.frame_graficas.pack(
             fill="both",
             expand=True,
-            padx=10,
-            pady=10
+            padx=5,
+            pady=5
         )
-
-        self.frame_graficas.pack_propagate(False)
 
     # =====================================================
     # TARJETAS
@@ -407,27 +410,27 @@ class SistemaTerremotos:
 
         frame = tk.Frame(
             parent,
-            bg="#1e293b",
-            width=220,
-            height=90
+            bg="#111827",
+            width=250,
+            height=80
         )
 
-        frame.pack(side="left", padx=10)
+        frame.pack(side="left", padx=8)
 
         frame.pack_propagate(False)
 
         tk.Label(
             frame,
             text=titulo,
-            bg="#1e293b",
+            bg="#111827",
             fg="white",
-            font=("Segoe UI", 11)
-        ).pack(pady=8)
+            font=("Segoe UI", 10, "bold")
+        ).pack(pady=6)
 
         valor = tk.Label(
             frame,
             text="0",
-            bg="#1e293b",
+            bg="#111827",
             fg="#38bdf8",
             font=("Segoe UI", 20, "bold")
         )
@@ -469,7 +472,6 @@ class SistemaTerremotos:
             self.col_lugar = columnas[0]
             self.col_magnitud = columnas[1]
             self.col_fecha = columnas[2]
-            self.col_profundidad = columnas[3]
 
             self.actualizar_tarjetas()
             self.cargar_tabla()
@@ -487,7 +489,7 @@ class SistemaTerremotos:
             )
 
     # =====================================================
-    # TARJETAS
+    # ACTUALIZAR TARJETAS
     # =====================================================
 
     def actualizar_tarjetas(self):
@@ -507,7 +509,7 @@ class SistemaTerremotos:
         self.max_label.config(text=str(maximo))
 
     # =====================================================
-    # TABLA
+    # CARGAR TABLA
     # =====================================================
 
     def cargar_tabla(self):
@@ -517,16 +519,16 @@ class SistemaTerremotos:
 
         datos = self.df_filtrado.head(100)
 
-        for _, row in datos.iterrows():
+        for i, (_, row) in enumerate(datos.iterrows(), start=1):
 
             self.tabla.insert(
                 "",
                 "end",
                 values=(
+                    i,
                     row[self.col_lugar],
                     row[self.col_magnitud],
-                    row[self.col_fecha],
-                    row[self.col_profundidad]
+                    row[self.col_fecha]
                 )
             )
 
@@ -562,7 +564,7 @@ class SistemaTerremotos:
             )
 
     # =====================================================
-    # LIMPIAR FILTROS
+    # LIMPIAR
     # =====================================================
 
     def limpiar_filtros(self):
@@ -621,7 +623,7 @@ class SistemaTerremotos:
 
         plt.style.use("dark_background")
 
-        fig, ax = plt.subplots(figsize=(11, 5))
+        fig, ax = plt.subplots(figsize=(12, 8))
 
         magnitudes = pd.to_numeric(
             self.df_filtrado[self.col_magnitud],
@@ -631,36 +633,27 @@ class SistemaTerremotos:
         categorias = pd.cut(
             magnitudes,
             bins=[0, 5, 7, 10],
-            labels=[
-                "Moderados",
-                "Fuertes",
-                "Muy fuertes"
-            ]
+            labels=["Moderados", "Fuertes", "Muy fuertes"]
         )
 
         datos = categorias.value_counts()
 
-        colores = [
-            "#22c55e",
-            "#facc15",
-            "#ef4444"
-        ]
+        colores = ["#22c55e", "#facc15", "#ef4444"]
 
         ax.pie(
             datos,
             labels=datos.index,
             autopct="%1.1f%%",
             colors=colores,
-            startangle=90
+            startangle=90,
+            textprops={"fontsize": 15}
         )
 
         ax.set_title(
-            "Porcentaje de Terremotos",
-            fontsize=18,
+            "PORCENTAJE DE TERREMOTOS",
+            fontsize=22,
             fontweight="bold"
         )
-
-        plt.tight_layout()
 
         canvas = FigureCanvasTkAgg(
             fig,
@@ -675,7 +668,7 @@ class SistemaTerremotos:
         )
 
     # =====================================================
-    # GRAFICA BARRAS MEJORADA
+    # TOP 10
     # =====================================================
 
     def grafica_barras(self):
@@ -684,9 +677,7 @@ class SistemaTerremotos:
 
         plt.style.use("dark_background")
 
-        fig, ax = plt.subplots(figsize=(13, 6))
-
-        fig.patch.set_facecolor("#0f172a")
+        fig, ax = plt.subplots(figsize=(16, 9))
 
         magnitudes = pd.to_numeric(
             self.df_filtrado[self.col_magnitud],
@@ -702,14 +693,23 @@ class SistemaTerremotos:
             ascending=False
         ).head(10)
 
-        nombres = top10[self.col_lugar]
+        nombres = []
+
+        for nombre in top10[self.col_lugar]:
+
+            texto = str(nombre)
+
+            if len(texto) > 25:
+                texto = texto[:25] + "..."
+
+            nombres.append(texto)
 
         valores = top10["magnitud_num"]
 
         barras = ax.bar(
             nombres,
             valores,
-            color="#38bdf8",
+            color="#2563eb",
             edgecolor="white",
             linewidth=2
         )
@@ -720,44 +720,38 @@ class SistemaTerremotos:
 
             ax.text(
                 barra.get_x() + barra.get_width()/2,
-                altura + 0.1,
+                altura + 0.05,
                 f"{altura:.1f}",
                 ha="center",
-                fontsize=10,
-                color="white",
+                fontsize=13,
                 fontweight="bold"
             )
 
         ax.set_title(
             "TOP 10 TERREMOTOS MÁS FUERTES",
-            fontsize=20,
-            fontweight="bold",
-            pad=20
+            fontsize=24,
+            fontweight="bold"
         )
 
         ax.set_xlabel(
             "Lugar del terremoto",
-            fontsize=13
+            fontsize=15
         )
 
         ax.set_ylabel(
             "Magnitud",
-            fontsize=13
+            fontsize=15
         )
 
         plt.xticks(
-            rotation=25,
+            rotation=10,
             ha="right",
-            fontsize=9
+            fontsize=11
         )
 
-        ax.grid(
-            True,
-            linestyle="--",
-            alpha=0.3
-        )
+        ax.grid(True, linestyle="--", alpha=0.3)
 
-        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.25)
 
         canvas = FigureCanvasTkAgg(
             fig,
@@ -772,7 +766,7 @@ class SistemaTerremotos:
         )
 
     # =====================================================
-    # GRAFICA SCATTER
+    # SCATTER
     # =====================================================
 
     def grafica_scatter(self):
@@ -781,7 +775,7 @@ class SistemaTerremotos:
 
         plt.style.use("dark_background")
 
-        fig, ax = plt.subplots(figsize=(12, 5))
+        fig, ax = plt.subplots(figsize=(15, 8))
 
         if "longitude" in self.df.columns and "latitude" in self.df.columns:
 
@@ -793,27 +787,35 @@ class SistemaTerremotos:
                     errors="coerce"
                 ),
                 cmap="coolwarm",
-                s=90,
+                s=140,
                 alpha=0.8,
                 edgecolors="white"
             )
 
             barra = fig.colorbar(scatter)
 
-            barra.set_label("Magnitud")
+            barra.set_label(
+                "Magnitud",
+                fontsize=13
+            )
 
             ax.set_title(
-                "Mapa Mundial de Terremotos",
-                fontsize=18,
+                "MAPA DE TERREMOTOS",
+                fontsize=24,
                 fontweight="bold"
             )
 
-            ax.set_xlabel("Longitud")
-            ax.set_ylabel("Latitud")
+            ax.set_xlabel(
+                "Longitud",
+                fontsize=15
+            )
+
+            ax.set_ylabel(
+                "Latitud",
+                fontsize=15
+            )
 
             ax.grid(True)
-
-        plt.tight_layout()
 
         canvas = FigureCanvasTkAgg(
             fig,
@@ -837,7 +839,7 @@ class SistemaTerremotos:
 
         plt.style.use("dark_background")
 
-        fig, ax = plt.subplots(figsize=(11, 5))
+        fig, ax = plt.subplots(figsize=(15, 8))
 
         magnitudes = pd.to_numeric(
             self.df_filtrado[self.col_magnitud],
@@ -847,22 +849,27 @@ class SistemaTerremotos:
         ax.hist(
             magnitudes,
             bins=12,
-            color="#38bdf8",
+            color="#22c55e",
             edgecolor="white"
         )
 
         ax.set_title(
-            "Distribución de Magnitudes",
-            fontsize=18,
+            "DISTRIBUCIÓN DE MAGNITUDES",
+            fontsize=24,
             fontweight="bold"
         )
 
-        ax.set_xlabel("Magnitud")
-        ax.set_ylabel("Cantidad")
+        ax.set_xlabel(
+            "Magnitud",
+            fontsize=15
+        )
+
+        ax.set_ylabel(
+            "Cantidad de terremotos",
+            fontsize=15
+        )
 
         ax.grid(True)
-
-        plt.tight_layout()
 
         canvas = FigureCanvasTkAgg(
             fig,
@@ -877,7 +884,7 @@ class SistemaTerremotos:
         )
 
 # =====================================================
-# EJECUTAR PROGRAMA
+# EJECUTAR
 # =====================================================
 
 if __name__ == "__main__":
