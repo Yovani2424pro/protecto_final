@@ -61,7 +61,20 @@ class SistemaTerremotos:
         if not os.path.exists("reportes"):
             os.makedirs("reportes")
 
+        # =====================================================
+        # PROTOCOLO DE CIERRE (NUEVA FUNCIÓN AL PRESIONAR X)
+        # =====================================================
+        self.root.protocol("WM_DELETE_WINDOW", self.cerrar_aplicacion)
+
         self.pantalla_inicio()
+
+    # =====================================================
+    # FUNCIÓN PARA CERRAR APLICACIÓN (NUEVO)
+    # =====================================================
+    
+    def cerrar_aplicacion(self):
+        if messagebox.askyesno("Salir", "¿Estás seguro de que deseas salir de la aplicación?"):
+            self.root.destroy()
 
     # =====================================================
     # PANTALLA INICIO
@@ -145,7 +158,7 @@ class SistemaTerremotos:
 
         archivo.add_command(
             label="Salir",
-            command=self.root.quit
+            command=self.cerrar_aplicacion # Actualizado para usar la nueva función
         )
 
         barra.add_cascade(
